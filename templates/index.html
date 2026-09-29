@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#26312c">
+  <title>Погода</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v=7) }}">
+</head>
+<body data-scene="clear">
+  <main class="canvas" id="canvas">
+    <div class="painting" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="weather-effect" id="weather-effect" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <button class="unit-switch" id="unit-toggle" type="button" aria-label="Переключить шкалу температуры">°C <span>／</span> °F</button>
+    </header>
+
+    <section class="hero" aria-label="Погода в выбранном городе">
+      <div class="hero-copy">
+        <div class="date-line"><span id="date-label">Погода сегодня</span></div>
+        <div class="location-row">
+          <div>
+            <h1 id="city-name">Москва</h1>
+            <p class="region" id="region-name">Россия</p>
+          </div>
+          <form id="search-form" class="search" role="search">
+            <label class="sr-only" for="city-input">Название города</label>
+            <input id="city-input" type="search" placeholder="Найти город" autocomplete="off">
+            <button aria-label="Найти погоду" type="submit"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+          </form>
+        </div>
+
+        <div class="temperature-row">
+          <span class="weather-glyph" id="weather-glyph" aria-hidden="true">☼</span>
+          <div class="temperature" id="temperature">—<sup>°</sup></div>
+          <div class="condition">
+            <p id="description">Загружаем погоду…</p>
+            <span id="range">—</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="weather-card" aria-label="Подробности прогноза">
+        <div class="card-heading">ПОДРОБНОСТИ</div>
+        <div class="metrics">
+          <div class="metric"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0Z"/><path d="M12 11v7"/></svg></span><span><small>Ощущается</small><strong id="feels-like">—°</strong></span></div>
+          <div class="metric"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3"/><path d="M3 12h16a2 2 0 1 1-2 2"/><path d="M3 16h9a3 3 0 1 1-3 3"/></svg></span><span><small>Ветер</small><strong id="wind">— км/ч</strong></span></div>
+          <div class="metric"><span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5S6.5 10 6.5 14a5.5 5.5 0 0 0 11 0c0-4-5.5-10.5-5.5-10.5Z"/><path d="M9.5 15.5a2.6 2.6 0 0 0 2.5 2"/></svg></span><span><small>Влажность</small><strong id="humidity">—%</strong></span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="forecast" aria-label="Прогноз на ближайшие часы">
+      <div class="forecast-title"><span class="eyebrow">ПО ЧАСАМ</span><span class="updated" id="updated">Обновляется при поиске</span></div>
+      <div class="hours" id="hours"><div class="hour-placeholder">Загружаем почасовой прогноз…</div></div>
+    </section>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="{{ url_for('static', filename='app.js', v=5) }}" defer></script>
+</body>
+</html>
